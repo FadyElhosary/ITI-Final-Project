@@ -1,6 +1,6 @@
 # Loan Credit Analysis — End-to-End Data Engineering Project
 
-A data engineering project built around historical loan data, combining batch processing, streaming ingestion, dimensional modeling, and workflow orchestration.
+An end-to-end Data Engineering project built around historical loan data. It combines batch processing, streaming ingestion, dimensional modeling, orchestration, and cloud data warehousing.
 
 ![Apache Spark](https://img.shields.io/badge/Processing-Apache%20Spark-E25A1C?logo=apachespark&logoColor=white)
 ![Snowflake](https://img.shields.io/badge/Warehouse-Snowflake-29B5E8?logo=snowflake&logoColor=white)
@@ -8,24 +8,19 @@ A data engineering project built around historical loan data, combining batch pr
 ![Airflow](https://img.shields.io/badge/Orchestration-Airflow-017CEE?logo=apacheairflow&logoColor=white)
 ![Python](https://img.shields.io/badge/Language-Python-3776AB?logo=python&logoColor=white)
 
-## Project overview
+## About the project
 
-This was my ITI Data Engineering final project. The main goal was to build a pipeline that could handle historical loan data while also demonstrating how new events could be processed as a stream.
+This was my ITI Data Engineering final project. I wanted to build something that covered more than a single ETL script, so the project combines two common data-processing patterns: batch processing for historical data and streaming for new events.
 
-The project therefore has two sides:
+The batch pipeline transforms historical loan data and loads it into a dimensional model in Snowflake. The streaming side uses Kafka to simulate incoming loan-related events. Airflow is used to organize and orchestrate the workflows.
 
-- Batch processing for historical data
-- Streaming processing for new events
-
-The data is transformed and modeled for analytical use, while Airflow is used to organize workflows and Kafka provides the streaming layer.
-
-The repository contains the transformation and loading notebooks, Kafka producer, streaming Python process, Docker Compose environment, and Snowflake model diagram. fileciteturn7file0
+The repository contains the transformation and loading notebooks, Kafka producer, streaming process, Docker environment, and warehouse model. fileciteturn7file0
 
 ## Architecture
 
 ![Loan Credit Analysis Architecture](docs/pipeline-architecture.svg)
 
-The main flow can be summarized as:
+The simplified flow is:
 
 ```text
 Historical Data -> Spark -> Snowflake -> Analysis
@@ -36,13 +31,13 @@ New Events -> Kafka -> Streaming Processing -> Analytical Storage
                       Airflow
 ```
 
-The Docker environment includes services for Airflow, PostgreSQL, Redis, Kafka, and Zookeeper. fileciteturn11file0
+The local Docker environment includes Airflow, PostgreSQL, Redis, Kafka, and Zookeeper services. fileciteturn11file0
 
 ## Data model
 
-The warehouse model separates descriptive information from measurable loan events.
+The warehouse separates descriptive entities from measurable loan events.
 
-The main entities include:
+The main entities are:
 
 - Borrower
 - Second Borrower
@@ -50,21 +45,19 @@ The main entities include:
 - Hardship
 - Loan Fact
 
-The repository also includes a Snowflake model diagram and separate notebooks for loading the dimensions and fact table. fileciteturn7file0
+The repository includes a Snowflake model diagram and separate notebooks for loading dimensions and facts. fileciteturn7file0
 
-## Batch pipeline
+## Batch processing
 
-The batch side of the project is implemented through a set of Jupyter notebooks.
+The batch pipeline is split across several notebooks. The general process is:
 
-Some of the main steps are:
+1. Prepare the historical source data.
+2. Apply transformations and data cleaning.
+3. Load the required dimensions.
+4. Load the fact table.
+5. Validate the resulting analytical data.
 
-1. Prepare and transform the historical source data.
-2. Clean and standardize the records.
-3. Load borrower and supporting dimensions.
-4. Load the loan fact table.
-5. Validate the resulting warehouse data.
-
-Relevant notebooks include:
+Main notebooks include:
 
 - `Transformations_2014_18.ipynb`
 - `Transformations_2019_20.ipynb`
@@ -74,24 +67,19 @@ Relevant notebooks include:
 - `Dim_SecondBorrower_load.ipynb`
 - `Fact_Table_Load.ipynb`
 
-## Streaming pipeline
+## Streaming processing
 
-For the streaming part, Kafka is used to simulate a continuous flow of loan-related events.
+The streaming part demonstrates a simple event-driven pipeline.
 
-The basic process is:
+A producer publishes loan-related events to Kafka. A Python streaming process consumes the events, transforms them, and loads the resulting records into the analytical layer.
 
-1. A producer publishes events to Kafka.
-2. The streaming process consumes the events.
-3. Incoming data is transformed as needed.
-4. The processed records are loaded into the analytical layer.
+The main streaming files are `kafka_producer.ipynb` and `load_to_DIM_Borrower_STREAMING.py`. fileciteturn7file0
 
-The repository includes `kafka_producer.ipynb` and `load_to_DIM_Borrower_STREAMING.py` for this part of the implementation. fileciteturn7file0
+## Orchestration with Airflow
 
-## Orchestration
+Airflow is used to turn the different processing steps into workflows with dependencies rather than relying only on manual execution.
 
-Airflow is used to make the pipeline repeatable instead of depending entirely on manual execution.
-
-It can be used to define task dependencies, schedule processing, monitor runs, and retry failed tasks.
+This makes the pipeline easier to schedule, monitor, and retry when a task fails.
 
 ## Technology stack
 
@@ -112,28 +100,27 @@ It can be used to define task dependencies, schedule processing, monitor runs, a
 - Docker Desktop
 - Python 3.x
 - Jupyter Notebook or JupyterLab
-- Snowflake account if the warehouse layer is used
+- A Snowflake environment if the warehouse layer is required
 
-### Start the environment
+### Start the local services
 
 ```bash
 docker compose up -d
 ```
 
-After the services are running, the notebooks and streaming components can be executed according to the pipeline flow above.
+Then run the notebooks and streaming components according to the pipeline flow above.
 
-The Docker Compose file currently contains development credentials. These should be replaced with environment variables or a proper secrets manager before using the setup beyond local development. fileciteturn11file0
+The Docker configuration contains development credentials. They should be moved to environment variables or a secrets manager before using this setup outside local development. fileciteturn11file0
 
-## What I learned from the project
+## What I learned
 
-The biggest value of this project was seeing how different Data Engineering concepts fit together. Spark, Kafka, Snowflake, and Airflow each solve a different problem, but the pipeline only becomes useful when they are connected into a coherent data flow.
+The main lesson from this project was understanding how the individual tools fit together.
 
-This project gave me hands-on practice with batch and streaming processing, dimensional modeling, orchestration, Dockerized services, and analytical data loading.
+Spark handles data processing, Snowflake provides the analytical storage, Kafka handles event ingestion, and Airflow coordinates the workflows. The project helped me see the complete pipeline rather than learning each technology in isolation.
 
 ## Author
 
 **Fady Elhosary**  
 Data Engineer
 
-- LinkedIn: [Fady Elhosary](https://www.linkedin.com/in/fady-elhosary-68064a338/)
-- Email: fadymohamed1@gmail.com
+[LinkedIn](https://www.linkedin.com/in/fady-elhossary-68064a338/) · fadymohamed1@gmail.com

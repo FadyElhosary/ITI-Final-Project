@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1250" height="560" viewBox="0 0 1250 560">
+<rect width="1250" height="560" fill="white"/>
+<text x="625" y="48" text-anchor="middle" font-family="Arial" font-size="30" font-weight="bold">Loan Credit Analysis — Data Engineering Architecture</text>
+<g font-family="Arial" font-size="17" text-anchor="middle">
+<rect x="45" y="150" width="180" height="95" rx="16" fill="#f3f4f6" stroke="#374151" stroke-width="2"/><text x="135" y="190">Loan Data</text><text x="135" y="217">Historical Sources</text>
+<rect x="270" y="150" width="180" height="95" rx="16" fill="#f3f4f6" stroke="#374151" stroke-width="2"/><text x="360" y="190">Spark</text><text x="360" y="217">Batch Transformations</text>
+<rect x="495" y="150" width="180" height="95" rx="16" fill="#f3f4f6" stroke="#374151" stroke-width="2"/><text x="585" y="190">Snowflake</text><text x="585" y="217">Analytical Warehouse</text>
+<rect x="720" y="150" width="180" height="95" rx="16" fill="#f3f4f6" stroke="#374151" stroke-width="2"/><text x="810" y="190">Power BI</text><text x="810" y="217">Analytics</text>
+<rect x="945" y="150" width="180" height="95" rx="16" fill="#f3f4f6" stroke="#374151" stroke-width="2"/><text x="1035" y="190">Insights</text><text x="1035" y="217">Credit Analysis</text>
+<rect x="360" y="355" width="180" height="90" rx="16" fill="#f3f4f6" stroke="#374151" stroke-width="2"/><text x="450" y="395">Kafka</text><text x="450" y="422">Streaming Ingestion</text>
+<rect x="585" y="355" width="180" height="90" rx="16" fill="#f3f4f6" stroke="#374151" stroke-width="2"/><text x="675" y="395">Streaming ETL</text><text x="675" y="422">Real-Time Processing</text>
+<rect x="810" y="355" width="180" height="90" rx="16" fill="#f3f4f6" stroke="#374151" stroke-width="2"/><text x="900" y="395">Airflow</text><text x="900" y="422">Orchestration</text>
+</g>
+<g stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)"><path d="M225 198H270"/><path d="M450 198H495"/><path d="M675 198H720"/><path d="M900 198H945"/><path d="M450 355V245"/><path d="M540 400H585"/><path d="M765 400H810"/><path d="M900 355V245"/></g>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#374151"/></marker></defs>
+<text x="625" y="505" text-anchor="middle" font-family="Arial" font-size="16">Batch + Streaming architecture for historical loan analysis and near-real-time ingestion.</text>
+</svg>
